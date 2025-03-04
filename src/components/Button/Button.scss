@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @keyframes pulse {
   0% {
     box-shadow: 0 0 0 0 var(--hover);
@@ -26,7 +28,7 @@ $colors: (
 @each $button, $color in $colors {
   .#{$button} {
     --color: #{$color};
-    --hover: #{adjust-hue($color, 45deg)};
+    --hover: #{color.adjust($color, $hue: 45deg)};
   }
 }
 
@@ -43,7 +45,7 @@ button {
 }
 
 button {
-  background: none;
+  background-color: #e49604;
   border: 2px solid;
   font: inherit;
   line-height: 1;

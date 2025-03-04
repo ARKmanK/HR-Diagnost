@@ -1,5 +1,13 @@
 import "./Button.scss";
 
 export default function Button({ onClick, children }) {
-  return <button className="raise mt-10">{children}</button>;
+  function handleClick() {
+    onClick();
+  }
+
+  return (
+    <button onClick={handleClick} className="raise mt-10">
+      {children}
+    </button>
+  );
 }

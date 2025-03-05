@@ -39,7 +39,7 @@ export default function Question({ question, options, onClick }) {
       </form>
       <button
         onClick={handleNext}
-        className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+        className="mt-4 bg-blue-500 text-white py-2 rounded"
       >
         Следующий вопрос
       </button>

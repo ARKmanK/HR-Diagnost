@@ -25,13 +25,15 @@ export default function MyApp() {
       {isTestStarted && <QuestionSection />}
 
       {!isTestStarted && (
-        <Button
-          onClick={() => {
-            setIsTestStarted(true);
-          }}
-        >
-          Пройти тест
-        </Button>
+        <div className="ml-4">
+          <Button
+            onClick={() => {
+              setIsTestStarted(true);
+            }}
+          >
+            Пройти тест
+          </Button>
+        </div>
       )}
     </div>
   );

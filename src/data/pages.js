@@ -1,11 +1,11 @@
 export const pages = {
   Главная: "index.html",
-  "О нас": "About.html",
-  Услуги: "Course.html",
-  Методики: "Course.html",
+  "О нас": "about.html",
+  Услуги: "services.html",
+  Методики: "methods.html",
   "Демо-версия": "demo.html",
-  Тарифы: "Course.html",
-  Блог: "Course.html",
-  Контакты: "Course.html",
-  "Личный кабинет": "Course.html",
+  Тарифы: "rate.html",
+  Блог: "blog.html",
+  Контакты: "contacts.html",
+  "Личный кабинет": "account.html",
 };

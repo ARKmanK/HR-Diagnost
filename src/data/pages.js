@@ -3,7 +3,7 @@ export const pages = {
   "О нас": "about.html",
   Услуги: "services.html",
   Методики: "methods.html",
-  "Демо-версия": "demo.html",
+  "Демо-версия": "holland.html",
   Тарифы: "rate.html",
   Блог: "blog.html",
   Контакты: "contacts.html",

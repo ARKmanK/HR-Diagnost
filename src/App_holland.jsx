@@ -10,7 +10,7 @@ export default function MyApp() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log("isTestStarted:", isTestStarted);
+      //console.log("isTestStarted:", isTestStarted);
     }, 2000);
 
     // Очистка интервала при размонтировании компонента

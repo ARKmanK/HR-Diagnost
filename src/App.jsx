@@ -1,9 +1,27 @@
-import Header from "./components/UI/Header/Header";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Header from "./components/UI/Header";
+
+import Home from "./pages/Home";
+import Holland from "./pages/Holland";
+import PageNotFound from "./pages/PageNotFound";
 
 export default function MyApp() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Home />,
+      errorElement: <PageNotFound />,
+    },
+    {
+      path: "/holland",
+      element: <Holland />,
+      errorElement: <PageNotFound />,
+    },
+  ]);
+
   return (
-    <div className="bg-gray-300 max-w-[1200px] mx-auto">
+    <RouterProvider router={router}>
       <Header />
-    </div>
+    </RouterProvider>
   );
 }

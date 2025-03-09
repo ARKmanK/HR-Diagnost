@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
-import Header from "../components/UI/Header/Header";
+import Header from "../components/UI/Header";
 import InfoBox from "../components/InfoBox";
 import QuestionSection from "../components/Question/QuestionSection";
-import Button from "../components/UI/Button/Button";
+import Button from "../components/UI/Button/ButtonTypeB/Button";
 
 export default function MyApp() {
   const [isTestStarted, setIsTestStarted] = useState(false);

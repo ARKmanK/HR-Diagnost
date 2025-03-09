@@ -1,5 +1,5 @@
 import NavBar from "./NavBar";
-import redbullLogo from "../img/RedBullRacing.svg";
+import redbullLogo from "../../../img/RedBullRacing.svg";
 
 export default function Header() {
   return (

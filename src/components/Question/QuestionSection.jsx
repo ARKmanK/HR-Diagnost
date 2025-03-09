@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Question from "./Question";
-import { questions } from "../data/questionsList";
-import ProgressBar from "./ProgressBar";
+import { questions } from "../../data/questionsList";
+import ProgressBar from "../ProgressBar";
 
 export default function QuestionBox() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);

@@ -1,9 +1,9 @@
-/* import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-import Header from "./components/UI/Header/Header";
-import InfoBox from "./components/InfoBox";
-import QuestionSection from "./components/Question/QuestionSection";
-import Button from "./components/UI/Button/Button";
+import Header from "../components/UI/Header/Header";
+import InfoBox from "../components/InfoBox";
+import QuestionSection from "../components/Question/QuestionSection";
+import Button from "../components/UI/Button/Button";
 
 export default function MyApp() {
   const [isTestStarted, setIsTestStarted] = useState(false);
@@ -38,4 +38,3 @@ export default function MyApp() {
     </div>
   );
 }
- */

@@ -1,42 +1,46 @@
 import { useEffect, useState } from "react";
 import Question from "./Question";
-import { questions } from "../../data/questionsList";
 import ProgressBar from "../ProgressBar";
 
-export default function QuestionBox() {
+export default function QuestionSection({ testName, questions }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [progressValue, setProgressValue] = useState(0);
 
   const handleNextQuestion = () => {
-    console.log(currentQuestionIndex);
-    if (currentQuestionIndex < Object.keys(questions).length - 1) {
+    //console.log(currentQuestionIndex);
+    if (currentQuestionIndex < Object.keys(questions).length) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
   };
 
   useEffect(() => {
-    if (currentQuestionIndex === 41) {
+    if (currentQuestionIndex === 42) {
       setProgressValue(100);
     } else {
       setProgressValue(
         Math.ceil((currentQuestionIndex / Object.keys(questions).length) * 100)
       );
     }
-  }, [currentQuestionIndex]);
+  }, [currentQuestionIndex, questions]);
 
   const currentQuestion = Object.keys(questions)[currentQuestionIndex];
   const currentOptions = questions[currentQuestion];
 
   return (
-    <div className="min-h-[200px] w-full bg-blue-950 mt-10">
-      <div className="pt-7 flex justify-center">
-        <Question
-          question={currentQuestion}
-          options={currentOptions}
-          onClick={handleNextQuestion}
-        />
+    <div className="min-h-[300px] md:min-h-[400px] w-full bg-blue-950 mt-10">
+      <div className="pt-7 md:pt-10 flex justify-center">
+        {testName === "hollandTest" && (
+          <Question
+            question={currentQuestion}
+            options={currentOptions}
+            onClick={handleNextQuestion}
+            testName={testName}
+          />
+        )}
       </div>
-      <ProgressBar progressValue={progressValue} />
+      {currentQuestionIndex < 42 && (
+        <ProgressBar progressValue={progressValue} />
+      )}
     </div>
   );
 }

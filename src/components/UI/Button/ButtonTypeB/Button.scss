@@ -32,7 +32,7 @@ $colors: (
   }
 }
 
-button {
+.raise {
   color: var(--color);
   transition: 0.25s;
   cursor: pointer;
@@ -42,9 +42,7 @@ button {
     border-color: var(--hover);
     color: #fff;
   }
-}
 
-button {
   background-color: #e49604;
   border: 2px solid;
   font: inherit;

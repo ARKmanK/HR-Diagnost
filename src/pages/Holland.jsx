@@ -1,28 +1,25 @@
 import { useState, useEffect } from "react";
 
 import Header from "../components/UI/Header";
-import InfoBox from "../components/InfoBox";
+import TestInfoBox from "../components/TestInfoBox";
 import QuestionSection from "../components/Question/QuestionSection";
 import Button from "../components/UI/Button/ButtonTypeB/Button";
+import { questions as hollandQuestions } from "../data/HollandTest/questionsList";
 
 export default function MyApp() {
   const [isTestStarted, setIsTestStarted] = useState(false);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      //console.log("isTestStarted:", isTestStarted);
-    }, 2000);
-
-    // Очистка интервала при размонтировании компонента
-    return () => clearInterval(interval);
-  }, [isTestStarted]); // Зависимость от isTestStarted
-
   return (
     <div className="bg-gray-300 max-w-[1200px] mx-auto">
       <Header />
-      <InfoBox boxType={"PersonalityTypes"}></InfoBox>
+      <TestInfoBox boxType={"hollandTest"}></TestInfoBox>
 
-      {isTestStarted && <QuestionSection />}
+      {isTestStarted && (
+        <QuestionSection
+          testName={"hollandTest"}
+          questions={hollandQuestions}
+        />
+      )}
 
       {!isTestStarted && (
         <div className="ml-4">

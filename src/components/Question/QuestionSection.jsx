@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import Question from "./Question";
-import ProgressBar from "../ProgressBar";
+import { useEffect, useState } from 'react';
+import Question from './Question';
+import ProgressBar from '../ProgressBar';
 
 export default function QuestionSection({ testName, questions }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -17,9 +17,7 @@ export default function QuestionSection({ testName, questions }) {
     if (currentQuestionIndex === 42) {
       setProgressValue(100);
     } else {
-      setProgressValue(
-        Math.ceil((currentQuestionIndex / Object.keys(questions).length) * 100)
-      );
+      setProgressValue(Math.ceil((currentQuestionIndex / Object.keys(questions).length) * 100));
     }
   }, [currentQuestionIndex, questions]);
 
@@ -29,18 +27,17 @@ export default function QuestionSection({ testName, questions }) {
   return (
     <div className="min-h-[300px] md:min-h-[400px] w-full bg-blue-950 mt-10">
       <div className="pt-7 md:pt-10 flex justify-center">
-        {testName === "hollandTest" && (
+        {testName === 'hollandTest' && (
           <Question
             question={currentQuestion}
             options={currentOptions}
             onClick={handleNextQuestion}
             testName={testName}
+            testLength={Object.keys(questions).length}
           />
         )}
       </div>
-      {currentQuestionIndex < 42 && (
-        <ProgressBar progressValue={progressValue} />
-      )}
+      {currentQuestionIndex < 42 && <ProgressBar progressValue={progressValue} />}
     </div>
   );
 }

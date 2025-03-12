@@ -4,7 +4,10 @@ export default function Button({ onClick, children }) {
   }
 
   return (
-    <button onClick={handleClick} className="p-4 rounded-lg border-gray-500">
+    <button
+      onClick={handleClick}
+      className="p-2 rounded-lg text-white font-semibold bg-blue-900 border-2 border-black cursor-pointer"
+    >
       {children}
     </button>
   );

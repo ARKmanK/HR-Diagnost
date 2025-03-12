@@ -1,30 +1,26 @@
-import { useState } from "react";
-import TestResults from "./TestResults";
-import countResult from "../../data/HollandTest/countResult";
+import { useState } from 'react';
+import TestResults from './TestResults';
+import countResult from '../../data/HollandTest/countResult';
 
-export default function Question({ question, options, onClick, testName }) {
+export default function Question({ question, options, onClick, testName, testLength }) {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answerList, setAnswerList] = useState([]);
 
-  const addAnswer = (index, option) => {
-    setAnswerList((prevAnswerList) => {
-      const newAnswerList = [...prevAnswerList];
-      if (index) {
-        newAnswerList.push(`${option}b`);
-      } else {
-        newAnswerList.push(`${option}a`);
+  const addAnswer = (index) => {
+    setAnswerList((answerList) => {
+      const newAnswerList = [...answerList];
+      {
+        index ? newAnswerList.push(`${questionIndex + 1}b`) : newAnswerList.push(`${questionIndex + 1}a`);
       }
-      console.log(newAnswerList); // Выводим обновленный список ответов
+      if (questionIndex + 1 === testLength) {
+        countResult(newAnswerList);
+      }
       return newAnswerList;
     });
-
-    if (questionIndex >= 41) {
-      countResult(answerList);
-    }
   };
 
-  const handleNextQuestion = (index, option) => {
-    addAnswer(index, option);
+  const handleNextQuestion = (index) => {
+    addAnswer(index);
     setQuestionIndex(questionIndex + 1);
     onClick();
   };

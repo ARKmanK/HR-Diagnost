@@ -40,7 +40,6 @@ export default function СountResult(result) {
   }
 
   localStorage.setItem('typeCounts', JSON.stringify(renamedTypeCounts));
-  console.log(localStorage.getItem('typeCounts'));
 
   return typeCounts;
 }

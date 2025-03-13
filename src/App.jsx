@@ -3,7 +3,13 @@ import Header from './components/UI/Header';
 
 import Home from './pages/Home';
 import Holland from './pages/Holland';
+import Cattell from './pages/Cattell';
+import About from './pages/About';
+import Service from './pages/Service';
 import Methods from './pages/Methods';
+import Blog from './pages/Blog';
+import Pricing from './pages/Pricing';
+import Login from './pages/Login';
 import PageNotFound from './pages/PageNotFound';
 
 export default function MyApp() {
@@ -16,6 +22,36 @@ export default function MyApp() {
     {
       path: '/holland',
       element: <Holland />,
+      errorElement: <PageNotFound />,
+    },
+    {
+      path: '/cattell',
+      element: <Cattell />,
+      errorElement: <PageNotFound />,
+    },
+    {
+      path: '/about',
+      element: <About />,
+      errorElement: <PageNotFound />,
+    },
+    {
+      path: '/service',
+      element: <Service />,
+      errorElement: <PageNotFound />,
+    },
+    {
+      path: '/blog',
+      element: <Blog />,
+      errorElement: <PageNotFound />,
+    },
+    {
+      path: '/pricing',
+      element: <Pricing />,
+      errorElement: <PageNotFound />,
+    },
+    {
+      path: '/login',
+      element: <Login />,
       errorElement: <PageNotFound />,
     },
     {

@@ -31,6 +31,14 @@ export default function TestResults({ testName }) {
             })}
           </>
         )}
+
+        {testName === 'cattellTest' && (
+          <>
+            <p className="py-8 text-text-lg md:text-2xl font-medium md:font-medium text-center ">
+              Результаты теста Кетелла
+            </p>
+          </>
+        )}
       </div>
     </section>
   );

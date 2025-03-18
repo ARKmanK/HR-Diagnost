@@ -1,8 +1,8 @@
-import Header from "../components/UI/Header";
+import Header from '../components/UI/Header';
 
 export default function Home() {
   return (
-    <div className="bg-gray-300 max-w-[1200px] mx-auto">
+    <div className='max-w-[1200px] h-[2080px] mx-auto'>
       <Header />
     </div>
   );

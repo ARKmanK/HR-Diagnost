@@ -1,93 +1,143 @@
-import supabase from './supabaseClient';
+const API = import.meta.env.SWAGGER_URL;
 
-// Регистрация пользователя
-export const registerUser = async (email, username, password) => {
-  const { user, error } = await supabase.auth.signUp({
-    email,
-    password,
-  });
+/**
+ * Регистрация нового пользователя через Swagger API
+ * @param {string} email - Email пользователя
+ * @param {string} password - Пароль пользователя
+ * @param {string} username - Имя пользователя
+ * @returns {Promise<Object>} - Данные пользователя
+ */
 
-  if (error) {
-    console.error('Ошибка при регистрации:', error);
-    return null;
-  }
+export const signUp = async (email, password, username) => {
+	try {
+		const response = await fetch(`${API}/Authentication/Register`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				email,
+				password,
+				username,
+			}),
+		});
 
-  console.log('Пользователь зарегистрирован:', user);
+		if (!response.ok) {
+			const errorData = await response.json();
+			throw new Error(errorData.message || 'Ошибка при регистрации');
+		}
 
-  // Добавляем username в таблицу public.users
-  const { data, error: profileError } = await supabase.from('users').insert([{ id: user.id, username }]);
-  console.log('da');
-  if (profileError) {
-    console.error('Ошибка при добавлении username:', profileError);
-    return null;
-  }
-
-  console.log('Username добавлен в таблицу users:', data);
-
-  return user;
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		throw new Error('Ошибка при регистрации: ' + error.message);
+	}
 };
 
-// Вход пользователя
-export const loginUser = async (email, password) => {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+/**
+ * Вход пользователя
+ * @param {string} email - Email пользователя
+ * @param {string} password - Пароль пользователя
+ * @returns {Promise<Object>} - Данные пользователя и токен
+ */
+export const signIn = async (email, password) => {
+	try {
+		const response = await fetch(`${API}/Authentication/Login`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				email,
+				password,
+			}),
+		});
 
-  if (error) {
-    console.error('Ошибка при входе:', error);
-    return null;
-  }
+		if (!response.ok) {
+			const errorData = await response.json();
+			throw new Error(errorData.message || 'Ошибка при входе');
+		}
 
-  return data.user;
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		throw new Error('Ошибка при входе: ' + error.message);
+	}
 };
 
-// Проверка, авторизован ли пользователь
-export const isUserAuthenticated = async () => {
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser();
+/**
+ * Подтверждение email
+ * @param {string} email - Email пользователя
+ * @param {string} code - Код подтверждения
+ * @returns {Promise<Object>} - Результат подтверждения
+ */
+export const confirmEmail = async (email, code) => {
+	try {
+		const response = await fetch(`${API}/Authentication/Confirm`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				email,
+				code,
+			}),
+		});
 
-  if (error) {
-    console.error('Ошибка при проверке авторизации:', error);
-    return false;
-  }
+		if (!response.ok) {
+			const errorData = await response.json();
+			throw new Error(errorData.message || 'Ошибка при подтверждении email');
+		}
 
-  return !!user;
+		return await response.json();
+	} catch (error) {
+		throw new Error('Ошибка при подтверждении email: ' + error.message);
+	}
 };
 
-export const getCurrentUserUsername = async () => {
-  const { user, error } = await supabase.auth.getUser();
+/**
+ * Восстановление пароля
+ * @param {string} email - Email пользователя
+ * @returns {Promise<Object>} - Результат запроса
+ */
+export const restorePassword = async (email) => {
+	try {
+		const response = await fetch(`${API}/Authentication/RestorePassword`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				email,
+			}),
+		});
 
-  if (error) {
-    console.error('Ошибка при получении текущего пользователя:', error);
-    return null;
-  }
+		if (!response.ok) {
+			const errorData = await response.json();
+			throw new Error(errorData.message || 'Ошибка при запросе восстановления пароля');
+		}
 
-  // Получаем username из таблицы users
-  const { data: profile, error: profileError } = await supabase
-    .from('users')
-    .select('username')
-    .eq('id', user.id)
-    .single();
-
-  if (profileError) {
-    console.error('Ошибка при получении username:', profileError);
-    return null;
-  }
-
-  return { ...user, username: profile.username };
+		return await response.json();
+	} catch (error) {
+		throw new Error('Ошибка при запросе восстановления пароля: ' + error.message);
+	}
 };
 
-// Проверка, существует ли username
-/* export const getCurrentUser = async () => {
-  const { user, error } = await supabase.auth.getUser();
+/**
+ * Проверка пользователя (заглушка)
+ * @returns {Promise<boolean>} - Всегда возвращает true
+ */
+export const checkUser = async () => {
+	// В реальной реализации здесь должна быть проверка токена и т.д.
+	return false;
+};
 
-  if (error) {
-    console.error('Ошибка при получении текущего пользователя:', error);
-    return null;
-  }
-
-  return user;
-}; */
+/**
+ * Выход пользователя
+ * @returns {Promise<void>}
+ */
+export const signOut = async () => {
+	// В реальной реализации здесь должен быть вызов API для выхода
+	// и очистка токена из localStorage
+	return Promise.resolve();
+};

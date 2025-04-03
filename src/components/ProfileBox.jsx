@@ -4,11 +4,14 @@ import Notification from './UI/Notification/Notification';
 import redbullLogo from '../img/RedBullRacing.svg';
 
 import userStats from '../data/userStats.json';
+import TestResults from './Question/TestResults';
 
 export default function ProfileBox({ user, onLogout }) {
 	const [notifications, setNotifications] = useState([]);
 	const [username, setUsername] = useState(`testUsername`);
 	const [verified, setVerified] = useState(true);
+	const [showTestResults, setShowTestResults] = useState(false);
+	const [testName, setTestName] = useState('');
 
 	const navigate = useNavigate();
 
@@ -27,15 +30,15 @@ export default function ProfileBox({ user, onLogout }) {
 		}, 4000);
 	};
 
-	const handleClick = (mode, path) => {
-		if (mode === 'continueTest') {
-			navigate(`${path}`);
-		} else {
-			if (mode === 'startTest') {
-				navigate(`${path}`);
-			}
+	const handleClick = (mode, path = null, testName = '') => {
+		if (mode === 'showResults') {
+			setShowTestResults(true);
+			setTestName(testName);
+		} else if (mode === 'startTest') {
+			navigate(path);
+		} else if (mode === 'continueTest') {
+			navigate(path);
 		}
-		return;
 	};
 
 	return (
@@ -99,7 +102,7 @@ export default function ProfileBox({ user, onLogout }) {
 						</div>
 					)}
 				</div>
-				<section className="border-4 border-yellow-600 rounded-2xl m-3">
+				<section className="border-4 border-yellow-600 rounded-2xl m-3 relative">
 					<div className="flex justify-center">
 						<h2 className="text-xl text-white font-semibold my-4">Мои Тесты</h2>
 					</div>
@@ -109,7 +112,7 @@ export default function ProfileBox({ user, onLogout }) {
 								key={index}
 								className="border-2 border-yellow-600 rounded-2xl mb-3 p-3 min-w-[500px]"
 							>
-								<p className="font-semibold text-lg text-white ml-1">{test.testName}</p>
+								<p className="font-semibold text-lg text-white ml-1">{test.testTitle}</p>
 								<div>
 									{test.status === 'done' && (
 										<div className="flex flex-col">
@@ -132,7 +135,7 @@ export default function ProfileBox({ user, onLogout }) {
 											</div>
 											<div className="flex justify-center">
 												<button
-													onClick={() => handleClick('showResults')}
+													onClick={() => handleClick('showResults', null, test.testName)}
 													className="border-2 border-black rounded-lg w-[45%] mt-3 py-1 px-2 text-md font-medium text-white cursor-pointer"
 												>
 													Просмотреть результат
@@ -202,6 +205,34 @@ export default function ProfileBox({ user, onLogout }) {
 							</li>
 						))}
 					</ul>
+					{showTestResults && (
+						<div className="absolute inset-0">
+							<div className="flex justify-center">
+								<div className="flex flex-col items-end">
+									<TestResults testName={testName} />
+									<button
+										onClick={() => setShowTestResults(false)}
+										className="absolute right cursor-pointer rounded-4xl mr-2 mt-2"
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+											strokeWidth="1.5"
+											stroke="currentColor"
+											className="size-8"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+											/>
+										</svg>
+									</button>
+								</div>
+							</div>
+						</div>
+					)}
 				</section>
 			</div>
 			<Notification notifications={notifications} />

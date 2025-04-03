@@ -1,4 +1,4 @@
-const API = import.meta.env.SWAGGER_URL;
+const API = import.meta.env.VITE_SWAGGER_URL;
 
 /**
  * Регистрация нового пользователя через Swagger API
@@ -9,17 +9,23 @@ const API = import.meta.env.SWAGGER_URL;
  */
 
 export const signUp = async (email, password, username) => {
+	const userData = {
+		surname: 'korepanov',
+		name: 'artyom',
+		patronymic: '',
+		email: email,
+		login: username,
+		password: password,
+		registerDate: new Date().toISOString(),
+	};
+
 	try {
 		const response = await fetch(`${API}/Authentication/Register`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({
-				email,
-				password,
-				username,
-			}),
+			body: JSON.stringify(userData),
 		});
 
 		if (!response.ok) {
@@ -40,17 +46,19 @@ export const signUp = async (email, password, username) => {
  * @param {string} password - Пароль пользователя
  * @returns {Promise<Object>} - Данные пользователя и токен
  */
-export const signIn = async (email, password) => {
+export const signIn = async (username, password) => {
+	const userData = {
+		login: username,
+		password: password,
+	};
+
 	try {
 		const response = await fetch(`${API}/Authentication/Login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({
-				email,
-				password,
-			}),
+			body: JSON.stringify(userData),
 		});
 
 		if (!response.ok) {
@@ -129,7 +137,7 @@ export const restorePassword = async (email) => {
  */
 export const checkUser = async () => {
 	// В реальной реализации здесь должна быть проверка токена и т.д.
-	return false;
+	return true;
 };
 
 /**

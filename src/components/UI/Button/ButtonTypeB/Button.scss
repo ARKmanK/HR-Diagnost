@@ -1,57 +1,57 @@
 @use 'sass:color';
 
 @keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 var(--hover);
-  }
+	0% {
+		box-shadow: 0 0 0 0 var(--hover);
+	}
 }
 
 .raise:hover,
 .raise:focus {
-  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
-  transform: translateY(-0.25em);
+	box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+	transform: translateY(-0.25em);
 }
 
 .offset {
-  box-shadow: 0.3em 0.3em 0 0 var(--color), inset 0.3em 0.3em 0 0 var(--color);
+	box-shadow: 0.3em 0.3em 0 0 var(--color), inset 0.3em 0.3em 0 0 var(--color);
 
-  &:hover,
-  &:focus {
-    box-shadow: 0 0 0 0 var(--hover), inset 6em 3.5em 0 0 var(--hover);
-  }
+	&:hover,
+	&:focus {
+		box-shadow: 0 0 0 0 var(--hover), inset 6em 3.5em 0 0 var(--hover);
+	}
 }
 
 $colors: (
-  raise: rgb(22, 37, 86),
+	raise: rgb(22, 37, 86),
 );
 
 @each $button, $color in $colors {
-  .#{$button} {
-    --color: #{$color};
-    --hover: #{color.adjust($color, $hue: 45deg)};
-  }
+	.#{$button} {
+		--color: #{$color};
+		--hover: #{color.adjust($color, $hue: 45deg)};
+	}
 }
 
 .raise {
-  color: var(--color);
-  transition: 0.25s;
-  cursor: pointer;
+	color: var(--color);
+	transition: 0.25s;
+	cursor: pointer;
 
-  &:hover,
-  &:focus {
-    border-color: var(--hover);
-    color: #fff;
-  }
+	&:hover,
+	&:focus {
+		border-color: var(--hover);
+		color: #fff;
+	}
 
-  background-color: #e49604;
-  border: 2px solid;
-  font: inherit;
-  line-height: 1;
-  padding: 10px 25px;
-  margin: 10px;
+	background-color: #e49604;
+	border: 2px solid;
+	font: inherit;
+	line-height: 1;
+	padding: 10px 25px;
+	margin: 10px;
 }
 
 code {
-  color: #e4cb58;
-  font: inherit;
+	color: #e4cb58;
+	font: inherit;
 }

@@ -3,14 +3,10 @@ import { signIn } from '../services/auth';
 import Notification from './UI/Notification/Notification';
 
 export default function LoginForm({ onSuccessfulLogin }) {
-	const [email, setEmail] = useState('');
+	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
 	const [notifications, setNotifications] = useState([]);
-
-	const isValidEmail = (email) => {
-		return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-	};
 
 	const addNotification = (type, title, message) => {
 		setNotifications((prevNotifications) => {
@@ -30,13 +26,8 @@ export default function LoginForm({ onSuccessfulLogin }) {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		if (!isValidEmail(email)) {
-			addNotification('error', 'Неправильная почта', 'Пожалуйста, введите корректный email.');
-			return;
-		}
-
 		try {
-			const user = await signIn(email, password);
+			const user = await signIn(username, password);
 			onSuccessfulLogin(user);
 			addNotification('success', 'Успешно', 'Вход успешен');
 		} catch (error) {
@@ -56,11 +47,11 @@ export default function LoginForm({ onSuccessfulLogin }) {
 					<div>
 						<form onSubmit={handleSubmit} className="flex flex-col mt-3">
 							<input
-								type="email"
-								placeholder="Email"
-								value={email}
+								type="username"
+								placeholder="Username"
+								value={username}
 								className="p-2 m-3 border border-white rounded-xl text-white"
-								onChange={(e) => setEmail(e.target.value)}
+								onChange={(e) => setUsername(e.target.value)}
 							/>
 							<input
 								type="password"

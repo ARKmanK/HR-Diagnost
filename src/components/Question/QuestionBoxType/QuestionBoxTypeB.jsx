@@ -1,19 +1,50 @@
-import { useState } from 'react';
-//import TestResults from '../TestResults';
-//import countResult from '../../../data/HollandTest/countResult';
+import { useEffect, useState } from 'react';
+import TestResults from '../TestResults';
+import { questions } from '../../../data/LuscherTest/questionsList';
+import countResult from '../../../data/LuscherTest/countResult.js';
 
 export default function QuestionBoxTypeB() {
+	const [list, setList] = useState([]);
+	const [clickedColors, setClickedColors] = useState([]);
+
+	const setSelectedColor = (color) => {
+		setList((prevList) => {
+			const newList = [...prevList, color];
+
+			if (newList.length === Object.keys(questions).length) {
+				countResult(newList);
+				return newList;
+			}
+			return newList;
+		});
+	};
+
+	const handleClick = (color) => {
+		setSelectedColor(color);
+		setClickedColors((prevClickedColors) => [...prevClickedColors, color]);
+	};
+
 	return (
 		<>
-			{/* {options.map((option, index) => (
-        <button
-          key={index}
-          onClick={() => handleNextQuestion(index)}
-          className="max-w-[250px] border-2 border-white rounded-xl cursor-pointer p-2 w-full my-3 hover:bg-blue-900 flex-shrink-0"
-        >
-          {option}
-        </button>
-      ))} */}
+			{list.length < Object.keys(questions).length ? (
+				Object.entries(questions).map(([color, bgColor]) => {
+					if (!clickedColors.includes(color)) {
+						return (
+							<button
+								key={bgColor}
+								onClick={() => handleClick(color)}
+								className={`w-[80px] h-[80px] mx-3 border border-black rounded-md`}
+								style={{ backgroundColor: bgColor }}
+							>
+								{' '}
+							</button>
+						);
+					}
+					return null;
+				})
+			) : (
+				<TestResults testName={'luscherTest'} />
+			)}
 		</>
 	);
 }

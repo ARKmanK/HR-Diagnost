@@ -68,7 +68,7 @@ export default function RegistryForm({ onSuccessfulSignUp, onSwitchToLogin }) {
 		try {
 			await signUp(email, password, username);
 			onSuccessfulSignUp();
-			addNotification('success', 'Успешно', 'Регистрация прошла успешно');
+			/* addNotification('success', 'Успешно', 'Регистрация прошла успешно'); */
 		} catch (error) {
 			addNotification('error', 'Ошибка', 'Ошибка при регистрации');
 			setError('Ошибка при регистрации: ' + error.message);

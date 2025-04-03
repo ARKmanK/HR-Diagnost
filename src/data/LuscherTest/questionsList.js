@@ -1,10 +1,10 @@
-export const questions = [
-  'black',
-  'gray-600',
-  'red-600',
-  'green-600',
-  'blue-600',
-  'yellow-600',
-  'violet-600',
-  'amber-900',
-];
+export const questions = {
+	black: 'black',
+	gray: 'gray',
+	red: 'red',
+	green: 'green',
+	blue: '#170b9c',
+	yellow: 'yellow',
+	brown: '#301807',
+	'dark-red': '#6e0927',
+};

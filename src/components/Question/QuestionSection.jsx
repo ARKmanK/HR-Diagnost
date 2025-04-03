@@ -39,7 +39,7 @@ export default function QuestionSection({ testName, questions }) {
 
 				{testName === 'luscherTest' && <QuestionBoxTypeB />}
 			</div>
-			{currentQuestionIndex < Object.keys(questions).length && (
+			{testName != 'luscherTest' && currentQuestionIndex < Object.keys(questions).length && (
 				<ProgressBar progressValue={progressValue} />
 			)}
 		</div>

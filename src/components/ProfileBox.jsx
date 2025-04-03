@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Notification from './UI/Notification/Notification';
 import redbullLogo from '../img/RedBullRacing.svg';
 
@@ -8,6 +9,8 @@ export default function ProfileBox({ user, onLogout }) {
 	const [notifications, setNotifications] = useState([]);
 	const [username, setUsername] = useState(`testUsername`);
 	const [verified, setVerified] = useState(true);
+
+	const navigate = useNavigate();
 
 	const addNotification = (type, title, message) => {
 		setNotifications((prevNotifications) => {
@@ -24,7 +27,14 @@ export default function ProfileBox({ user, onLogout }) {
 		}, 4000);
 	};
 
-	const handleClick = () => {
+	const handleClick = (mode, path) => {
+		if (mode === 'continueTest') {
+			navigate(`${path}`);
+		} else {
+			if (mode === 'startTest') {
+				navigate(`${path}`);
+			}
+		}
 		return;
 	};
 
@@ -151,7 +161,7 @@ export default function ProfileBox({ user, onLogout }) {
 											</div>
 											<div className="flex justify-center">
 												<button
-													onClick={() => handleClick('showResults')}
+													onClick={() => handleClick('continueTest', test.testAddress)}
 													className="border-2 border-black rounded-lg w-[45%] mt-3 py-1 px-2 text-md font-medium text-white cursor-pointer"
 												>
 													Продолжить
@@ -180,7 +190,7 @@ export default function ProfileBox({ user, onLogout }) {
 											</div>
 											<div className="flex justify-center">
 												<button
-													onClick={() => handleClick('showResults')}
+													onClick={() => handleClick('startTest', test.testAddress)}
 													className="border-2 border-black rounded-lg w-[45%] mt-3 py-1 px-2 text-md font-medium text-white cursor-pointer"
 												>
 													Начать тест

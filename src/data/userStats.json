@@ -1,12 +1,14 @@
 [
 	{
 		"testName": "Тест Голланда",
+		"testAddress": "/holland",
 		"status": "done",
 		"result": "Результат теста 1",
 		"dateCompleted": "2023-10-06"
 	},
 	{
 		"testName": "Тест Кетелла",
+		"testAddress": "/cattell",
 		"status": "in-progress",
 		"currentQuestion": 5,
 		"totalQuestions": 10,
@@ -14,6 +16,7 @@
 	},
 	{
 		"testName": "Тест Люшера",
+		"testAddress": "/luscher",
 		"status": "not-started",
 		"dateCreated": "2023-10-04"
 	}

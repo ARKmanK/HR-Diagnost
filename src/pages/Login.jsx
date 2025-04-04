@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Header from '../components/UI/Header';
-import RegistryForm from '../components/RegistryForm';
+import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
 import VideoBackground from '../components/VideoBackground';
 import ProfileBox from '../components/ProfileBox';
@@ -12,6 +12,13 @@ export default function Login() {
 	const [user, setUser] = useState(null);
 	const [isLoading, setIsLoading] = useState(true); // Добавляем состояние загрузки
 	const [notifications, setNotifications] = useState([]);
+
+	useEffect(() => {
+		const token = localStorage.getItem('authToken');
+		if (token) {
+			setIsAuthenticated(true);
+		}
+	}, [isAuthenticated]);
 
 	/* useEffect(() => {
 		console.log('isAuthenticated: ', isAuthenticated);
@@ -95,7 +102,7 @@ export default function Login() {
 								</button>
 							</>
 						) : (
-							<RegistryForm
+							<RegisterForm
 								onSuccessfulSignUp={handleSignUpSuccess}
 								onSwitchToLogin={() => setShowLoginForm(true)}
 							/>

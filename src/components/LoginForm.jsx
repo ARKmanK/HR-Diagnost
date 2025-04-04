@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { signIn } from '../services/auth';
+import { checkUser, signIn } from '../services/auth';
 import Notification from './UI/Notification/Notification';
 
 export default function LoginForm({ onSuccessfulLogin }) {
@@ -28,6 +28,8 @@ export default function LoginForm({ onSuccessfulLogin }) {
 
 		try {
 			const user = await signIn(username, password);
+			//const token = await checkUser
+			//localStorage.setItem('authToken', token)
 			onSuccessfulLogin(user);
 			addNotification('success', 'Успешно', 'Вход успешен');
 		} catch (error) {

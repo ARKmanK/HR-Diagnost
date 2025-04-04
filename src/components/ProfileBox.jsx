@@ -206,7 +206,7 @@ export default function ProfileBox({ user, onLogout }) {
 						))}
 					</ul>
 					{showTestResults && (
-						<div className="absolute inset-0">
+						<div className="absolute inset-0 top-5">
 							<div className="flex justify-center">
 								<div className="flex flex-col items-end">
 									<TestResults testName={testName} />

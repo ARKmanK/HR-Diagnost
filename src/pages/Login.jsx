@@ -80,6 +80,8 @@ export default function Login() {
 	};
 
 	const handleLogoutSuccess = () => {
+		setIsAuthenticated(false);
+		setUser(null);
 		addNotification('success', 'Успешно', 'Увидимся');
 	};
 

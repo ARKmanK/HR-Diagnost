@@ -6,7 +6,7 @@ import redbullLogo from '../img/RedBullRacing.svg';
 import userStats from '../data/userStats.json';
 import TestResults from './Question/TestResults';
 
-export default function ProfileBox({ user, onLogout }) {
+export default function ProfileBox({ user, onSuccessfulLogout }) {
 	const [notifications, setNotifications] = useState([]);
 	const [username, setUsername] = useState(`testUsername`);
 	const [verified, setVerified] = useState(true);
@@ -39,6 +39,11 @@ export default function ProfileBox({ user, onLogout }) {
 		} else if (mode === 'continueTest') {
 			navigate(path);
 		}
+	};
+
+	const handleLogout = () => {
+		localStorage.removeItem('authToken');
+		onSuccessfulLogout();
 	};
 
 	return (
@@ -234,6 +239,14 @@ export default function ProfileBox({ user, onLogout }) {
 						</div>
 					)}
 				</section>
+				<div className="flex justify-start py-3">
+					<button
+						onClick={handleLogout}
+						className="border-2 border-black rounded-xl py-1 px-3 ml-5 bg-[#2e1b6d] cursor-pointer text-gray-100 font-medium hover:bg-[#2f294dfd] hover:-translate-y-1 transform transition-transform"
+					>
+						Выйти из аккаунта
+					</button>
+				</div>
 			</div>
 			<Notification notifications={notifications} />
 		</>

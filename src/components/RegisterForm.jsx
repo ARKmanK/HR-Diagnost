@@ -3,7 +3,7 @@ import { signUp } from '../services/auth';
 import { ArrowBigLeft } from 'lucide-react';
 import Notification from './UI/Notification/Notification';
 
-export default function RegistryForm({ onSuccessfulSignUp, onSwitchToLogin }) {
+export default function RegisterForm({ onSuccessfulSignUp, onSwitchToLogin }) {
 	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');

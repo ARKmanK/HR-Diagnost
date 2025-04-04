@@ -3,17 +3,35 @@ import { useNavigate } from 'react-router-dom';
 import Notification from './UI/Notification/Notification';
 import redbullLogo from '../img/RedBullRacing.svg';
 
-import userStats from '../data/userStats.json';
+//import userStats from '../data/userStats.json';
+import { fetchUserData, fetchUserStats } from '../services/data';
+
 import TestResults from './Question/TestResults';
 
 export default function ProfileBox({ user, onSuccessfulLogout }) {
 	const [notifications, setNotifications] = useState([]);
-	const [username, setUsername] = useState(`testUsername`);
-	const [verified, setVerified] = useState(true);
+	const [username, setUsername] = useState(``);
+	const [userStats, setUserStats] = useState([]);
+	const [verified, setVerified] = useState(false);
 	const [showTestResults, setShowTestResults] = useState(false);
 	const [testName, setTestName] = useState('');
 
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		const loadData = async () => {
+			try {
+				const [userData, statsData] = await Promise.all([fetchUserData(), fetchUserStats()]);
+
+				setUsername(userData[0].username);
+				setUserStats(statsData);
+				setVerified(userData[0].emailVerified);
+			} catch (error) {
+				addNotification('error', 'ошибка', 'Не удалось загрузить данные');
+			}
+		};
+		loadData();
+	});
 
 	const addNotification = (type, title, message) => {
 		setNotifications((prevNotifications) => {

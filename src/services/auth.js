@@ -8,10 +8,10 @@ const API = import.meta.env.VITE_SWAGGER_URL;
  * @returns {Promise<Object>} - Данные пользователя
  */
 
-export const signUp = async (email, password, username) => {
+export const signUp = async (username, name, surname, email, password) => {
 	const userData = {
-		surname: 'korepanov',
-		name: 'artyom',
+		surname: surname,
+		name: name,
 		patronymic: '',
 		email: email,
 		login: username,

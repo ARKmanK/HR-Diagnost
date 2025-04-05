@@ -1,12 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
-import { checkUser, signIn } from '../services/auth';
+
+import { signIn } from '../services/auth';
 import Notification from './UI/Notification/Notification';
 
 export default function LoginForm({ onSuccessfulLogin }) {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
-	const [error, setError] = useState('');
 	const [notifications, setNotifications] = useState([]);
 
 	const addNotification = (type, title, message) => {
@@ -29,13 +29,10 @@ export default function LoginForm({ onSuccessfulLogin }) {
 
 		try {
 			const user = await signIn(username, password);
-			//const token = await checkUser
-			//localStorage.setItem('authToken', token)
 			onSuccessfulLogin(user);
 			addNotification('success', 'Успешно', 'Вход успешен');
 		} catch (error) {
-			addNotification('error', 'Ошибка', 'Ошибка при входе');
-			setError('Ошибка при входе: ' + error.message);
+			addNotification('error', 'Ошибка', 'Ошибка при входе' + error.message);
 		}
 	};
 

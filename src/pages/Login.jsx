@@ -36,13 +36,13 @@ export default function Login() {
 		}, 4000);
 	};
 
-	const handleSignUpSuccess = () => {
-		addNotification('success', 'Успешно', 'Регистрация прошла успешно');
-	};
-
 	const handleLoginSuccess = () => {
 		addNotification('success', 'Успешно', 'Вход разрешен');
 		setIsAuthenticated(true);
+	};
+
+	const handleSignUpSuccess = () => {
+		addNotification('success', 'Успешно', 'Регистрация прошла успешно');
 	};
 
 	const handleLogoutSuccess = () => {
@@ -55,11 +55,11 @@ export default function Login() {
 		<>
 			<div className='max-w-[1200px] mx-auto'>
 				<Header />
-				{isAuthenticated ? (
-					<ProfileBox user={user} onSuccessfulLogout={handleLogoutSuccess} />
-				) : (
+				{isAuthenticated && <ProfileBox user={user} onSuccessfulLogout={handleLogoutSuccess} />}
+
+				{!isAuthenticated && (
 					<VideoBackground>
-						{showLoginForm ? (
+						{showLoginForm && (
 							<>
 								<LoginForm onSuccessfulLogin={handleLoginSuccess} />
 								<button
@@ -69,7 +69,8 @@ export default function Login() {
 									Зарегистрироваться
 								</button>
 							</>
-						) : (
+						)}
+						{!showLoginForm && (
 							<RegisterForm
 								onSuccessfulSignUp={handleSignUpSuccess}
 								onSwitchToLogin={() => setShowLoginForm(true)}

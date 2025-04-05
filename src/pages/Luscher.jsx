@@ -11,23 +11,25 @@ export default function Holland() {
 	const [isTestStarted, setIsTestStarted] = useState(false);
 
 	return (
-		<div className='bg-gray-300 max-w-[1200px] mx-auto'>
-			<Header />
-			<TestInfoBox boxType={'luscherTest'} />
+		<>
+			<div className='bg-gray-300 max-w-[1200px] mx-auto'>
+				<Header />
+				<TestInfoBox boxType={'luscherTest'} />
 
-			{isTestStarted && <QuestionSection testName={'luscherTest'} questions={luscherQuestions} />}
+				{isTestStarted && <QuestionSection testName={'luscherTest'} questions={luscherQuestions} />}
 
-			{!isTestStarted && (
-				<div className='ml-4 pb-3'>
-					<Button
-						onClick={() => {
-							setIsTestStarted(true);
-						}}
-					>
-						Пройти тест
-					</Button>
-				</div>
-			)}
-		</div>
+				{!isTestStarted && (
+					<div className='ml-4 pb-3'>
+						<Button
+							onClick={() => {
+								setIsTestStarted(true);
+							}}
+						>
+							Пройти тест
+						</Button>
+					</div>
+				)}
+			</div>
+		</>
 	);
 }

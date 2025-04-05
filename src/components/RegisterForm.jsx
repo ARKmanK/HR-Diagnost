@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+
 import { signUp } from '../services/auth';
 import { ArrowBigLeft } from 'lucide-react';
 import Notification from './UI/Notification/Notification';
@@ -10,7 +11,6 @@ export default function RegisterForm({ onSuccessfulSignUp, onSwitchToLogin }) {
 	const [surname, setSurname] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [error, setError] = useState('');
 	const [lastRequestTime, setLastRequestTime] = useState(null);
 	const [notifications, setNotifications] = useState([]);
 
@@ -87,9 +87,7 @@ export default function RegisterForm({ onSuccessfulSignUp, onSwitchToLogin }) {
 				'Регистрация прошла успешно, можете перейти в раздел авторизации'
 			);
 		} catch (error) {
-			addNotification('error', 'Ошибка', 'Ошибка при регистрации');
-			setError('Ошибка при регистрации: ' + error.message);
-			console.log(error);
+			addNotification('error', 'Ошибка', 'Ошибка при регистрации' + error.message);
 		}
 	};
 
@@ -109,6 +107,7 @@ export default function RegisterForm({ onSuccessfulSignUp, onSwitchToLogin }) {
 								value={username}
 								className='p-2 m-3 border border-white rounded-xl text-white'
 								onChange={(e) => setUsername(e.target.value)}
+								autoFocus
 							/>
 							<input
 								type='text'
@@ -144,7 +143,6 @@ export default function RegisterForm({ onSuccessfulSignUp, onSwitchToLogin }) {
 							>
 								Register
 							</button>
-							{error && <p style={{ color: 'red' }}>{error}</p>}
 						</form>
 						<div className='mt-3'>
 							<button

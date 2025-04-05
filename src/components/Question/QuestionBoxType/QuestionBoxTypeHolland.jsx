@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+
 import TestResults from '../TestResults.jsx';
 import countResult from '../../../data/HollandTest/countResult.js';
 import { saveTestResultsInStorage } from '../../../services/data.js';
@@ -17,24 +18,16 @@ export default function QuestionBoxTypeA({ question, options, onClick, testName,
 					: newAnswerList.push(`${questionIndex + 1}a`);
 			}
 			if (questionIndex + 1 === testLength) {
-				//countResult(newAnswerList);
 				const results = countResult(newAnswerList);
 
-				console.log('Сохраняем результаты');
 				saveTestResultsInStorage({
 					testTitle: 'Тест Голланда',
-					testName: 'hollandTest', // Должно точно соответствовать
+					testName: 'hollandTest',
 					testAddress: '/holland',
 					answers: newAnswerList,
 					results,
 					status: 'done',
 					dateCompleted: new Date().toISOString(),
-				}).then((success) => {
-					if (success) {
-						console.log('Результаты успешно сохранены в localStorage');
-						const savedData = JSON.parse(localStorage.getItem('userStats'));
-						console.log('Проверка:', savedData);
-					}
 				});
 			}
 			return newAnswerList;

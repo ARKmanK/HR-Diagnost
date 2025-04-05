@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+
 import Button from './UI/Button/ButtonTypeA/Button';
 import Notification from './UI/Notification/Notification';
 
@@ -40,7 +41,7 @@ export default function MethodCard({ imgSrc, title, description, onClick }) {
 			onClick();
 		}
 	};
-	//  background: -webkit-linear-gradient(176deg, #856b2c,#c3613c,#f54d7f); background: linear-gradient(176deg, #856b2c,#c3613c,#f54d7f);
+
 	return (
 		<>
 			<div className='method-card bg-gray-400 min-h-[400px] flex flex-col rounded-2xl mx-4 items-center mb-5 mt-5'>

@@ -1,13 +1,16 @@
+import React from 'react';
 import { useState } from 'react';
+
 import { signUp } from '../services/auth';
 import { ArrowBigLeft } from 'lucide-react';
 import Notification from './UI/Notification/Notification';
 
-export default function RegistryForm({ onSuccessfulSignUp, onSwitchToLogin }) {
+export default function RegisterForm({ onSuccessfulSignUp, onSwitchToLogin }) {
 	const [username, setUsername] = useState('');
+	const [name, setName] = useState('');
+	const [surname, setSurname] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [error, setError] = useState('');
 	const [lastRequestTime, setLastRequestTime] = useState(null);
 	const [notifications, setNotifications] = useState([]);
 
@@ -51,6 +54,16 @@ export default function RegistryForm({ onSuccessfulSignUp, onSwitchToLogin }) {
 			return;
 		}
 
+		if (name.length === 0) {
+			addNotification('warning', 'Предупреждение', 'Поле "name" должно быть заполнено');
+			return;
+		}
+
+		if (surname.length === 0) {
+			addNotification('warning', 'Предупреждение', 'Поле "surname" должно быть заполнено');
+			return;
+		}
+
 		if (!isValidEmail(email)) {
 			addNotification('error', 'Неправильная почта', 'Пожалуйста, введите корректный email.');
 			return;
@@ -66,61 +79,77 @@ export default function RegistryForm({ onSuccessfulSignUp, onSwitchToLogin }) {
 		}
 
 		try {
-			await signUp(email, password, username);
+			await signUp(username, name, surname, email, password);
 			onSuccessfulSignUp();
-			/* addNotification('success', 'Успешно', 'Регистрация прошла успешно'); */
+			addNotification(
+				'success',
+				'Успешно',
+				'Регистрация прошла успешно, можете перейти в раздел авторизации'
+			);
 		} catch (error) {
-			addNotification('error', 'Ошибка', 'Ошибка при регистрации');
-			setError('Ошибка при регистрации: ' + error.message);
-			console.log(error);
+			addNotification('error', 'Ошибка', 'Ошибка при регистрации' + error.message);
 		}
 	};
 
 	return (
 		<>
-			<div className="rounded-2xl flex flex-col">
-				<div className="m-3">
-					<div className="text-white">
-						<p className="text-2xl mb-2">Создать аккаунт</p>
+			<div className='rounded-2xl flex flex-col'>
+				<div className='m-3'>
+					<div className='text-white'>
+						<p className='text-2xl mb-2'>Создать аккаунт</p>
 						<p>Введите вашу почту ниже для создания аккаунта</p>
 					</div>
-					<div className="">
-						<form onSubmit={handleSubmit} className="flex flex-col mt-3">
+					<div className=''>
+						<form onSubmit={handleSubmit} className='flex flex-col mt-3'>
 							<input
-								type="text"
-								placeholder="Username"
+								type='text'
+								placeholder='Username'
 								value={username}
-								className="p-2 m-3 border border-white rounded-xl text-white"
+								className='p-2 m-3 border border-white rounded-xl text-white'
 								onChange={(e) => setUsername(e.target.value)}
+								autoFocus
 							/>
 							<input
-								type="email"
-								placeholder="Email"
+								type='text'
+								placeholder='Name'
+								value={name}
+								className='p-2 m-3 border border-white rounded-xl text-white'
+								onChange={(e) => setName(e.target.value)}
+							/>
+							<input
+								type='text'
+								placeholder='Surname'
+								value={surname}
+								className='p-2 m-3 border border-white rounded-xl text-white'
+								onChange={(e) => setSurname(e.target.value)}
+							/>
+							<input
+								type='email'
+								placeholder='Email'
 								value={email}
-								className="p-2 m-3 border border-white rounded-xl text-white"
+								className='p-2 m-3 border border-white rounded-xl text-white'
 								onChange={(e) => setEmail(e.target.value)}
 							/>
 							<input
-								type="password"
-								placeholder="Password"
+								type='password'
+								placeholder='Password'
 								value={password}
-								className="p-2 m-3 border border-white rounded-xl text-white"
+								className='p-2 m-3 border border-white rounded-xl text-white'
 								onChange={(e) => setPassword(e.target.value)}
 							/>
 							<button
-								type="submit"
-								className="cursor-pointer p-2 m-3 border border-white rounded-xl text-white"
+								type='submit'
+								className='cursor-pointer p-2 m-3 border border-white rounded-xl text-white'
 							>
 								Register
 							</button>
-							{error && <p style={{ color: 'red' }}>{error}</p>}
 						</form>
-						<div className="mt-3">
+						<div className='mt-3'>
 							<button
-								className="cursor-pointer flex border border-white rounded-xl py-1 px-2 text-white"
+								className='cursor-pointer flex border border-white rounded-xl py-1 px-2 text-white'
 								onClick={onSwitchToLogin}
 							>
-								<ArrowBigLeft size={22} className="text-white" />
+								<ArrowBigLeft size={22} className='text-white' />
 								Вернуться
 							</button>
 						</div>

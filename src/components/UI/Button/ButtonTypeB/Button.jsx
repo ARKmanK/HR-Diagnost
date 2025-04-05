@@ -1,3 +1,4 @@
+import React from 'react';
 import './Button.scss';
 
 export default function Button({ onClick, children, className = '' }) {
@@ -6,8 +7,10 @@ export default function Button({ onClick, children, className = '' }) {
 	}
 
 	return (
-		<button onClick={handleClick} className={`raise mt-10 ${className}`}>
-			{children}
-		</button>
+		<>
+			<button onClick={handleClick} className={`raise mt-10 ${className}`}>
+				{children}
+			</button>
+		</>
 	);
 }

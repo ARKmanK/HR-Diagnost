@@ -8,10 +8,10 @@ const API = import.meta.env.VITE_SWAGGER_URL;
  * @returns {Promise<Object>} - Данные пользователя
  */
 
-export const signUp = async (email, password, username) => {
+export const signUp = async (username, name, surname, email, password) => {
 	const userData = {
-		surname: 'korepanov',
-		name: 'artyom',
+		surname: surname,
+		name: name,
 		patronymic: '',
 		email: email,
 		login: username,
@@ -67,6 +67,8 @@ export const signIn = async (username, password) => {
 		}
 
 		const data = await response.json();
+		console.log(data);
+		localStorage.setItem('authToken', data.token);
 		return data;
 	} catch (error) {
 		throw new Error('Ошибка при входе: ' + error.message);
@@ -132,12 +134,26 @@ export const restorePassword = async (email) => {
 };
 
 /**
- * Проверка пользователя (заглушка)
+ * Проверка пользователя
  * @returns {Promise<boolean>} - Всегда возвращает true
  */
+
 export const checkUser = async () => {
-	// В реальной реализации здесь должна быть проверка токена и т.д.
-	return true;
+	const token = localStorage.getItem('authToken');
+	if (!token) return false;
+
+	try {
+		const response = await fetch(`${API}/Authentication/ValidateToken`, {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
+		return response.ok; // Возвращает true, если токен валиден
+	} catch (error) {
+		console.error('Ошибка при проверке токена:', error);
+		return false;
+	}
 };
 
 /**

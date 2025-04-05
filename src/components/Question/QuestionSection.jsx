@@ -1,6 +1,8 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
-import QuestionBoxTypeA from './QuestionBoxType/QuestionBoxTypeA';
-import QuestionBoxTypeB from './QuestionBoxType/QuestionBoxTypeB';
+
+import QuestionBoxTypeHolland from './QuestionBoxType/QuestionBoxTypeHolland';
+import QuestionBoxTypeLuscher from './QuestionBoxType/QuestionBoxTypeLuscher';
 import ProgressBar from '../ProgressBar';
 
 export default function QuestionSection({ testName, questions }) {
@@ -25,23 +27,29 @@ export default function QuestionSection({ testName, questions }) {
 	const currentOptions = questions[currentQuestion];
 
 	return (
-		<div className="min-h-[300px] md:min-h-[400px] w-full bg-blue-950 mt-10">
-			<div className="pt-7 md:pt-10 flex justify-center">
-				{(testName === 'hollandTest' || testName === 'cattellTest') && (
-					<QuestionBoxTypeA
-						question={currentQuestion}
-						options={currentOptions}
-						onClick={handleNextQuestion}
-						testName={testName}
-						testLength={Object.keys(questions).length}
-					/>
-				)}
+		<>
+			<div className='min-h-[300px] md:min-h-[400px] w-full bg-blue-950 mt-10'>
+				<div className='pt-7 md:pt-10 flex justify-center'>
+					{(testName === 'hollandTest' || testName === 'cattellTest') && (
+						<>
+							<QuestionBoxTypeHolland
+								question={currentQuestion}
+								options={currentOptions}
+								onClick={handleNextQuestion}
+								testName={testName}
+								testLength={Object.keys(questions).length}
+							/>
+						</>
+					)}
 
-				{testName === 'luscherTest' && <QuestionBoxTypeB />}
+					{testName === 'luscherTest' && <QuestionBoxTypeLuscher />}
+				</div>
+				{testName != 'luscherTest' && currentQuestionIndex < Object.keys(questions).length && (
+					<>
+						<ProgressBar progressValue={progressValue} />
+					</>
+				)}
 			</div>
-			{testName != 'luscherTest' && currentQuestionIndex < Object.keys(questions).length && (
-				<ProgressBar progressValue={progressValue} />
-			)}
-		</div>
+		</>
 	);
 }

@@ -1,6 +1,8 @@
+import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Header from './components/UI/Header';
+import { initUserStats, initUserData } from './services/data.js';
 
+import Header from './components/UI/Header';
 import Home from './pages/Home';
 import Holland from './pages/Holland';
 import Cattell from './pages/Cattell';
@@ -12,6 +14,9 @@ import Blog from './pages/Blog';
 import Pricing from './pages/Pricing';
 import Login from './pages/Login';
 import PageNotFound from './pages/PageNotFound';
+
+initUserStats();
+initUserData();
 
 export default function MyApp() {
 	const router = createBrowserRouter(

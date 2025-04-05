@@ -41,5 +41,5 @@ export default function countResult(result) {
 
 	localStorage.setItem('typeCounts', JSON.stringify(renamedTypeCounts));
 
-	return typeCounts;
+	return renamedTypeCounts;
 }

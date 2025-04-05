@@ -1,15 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Notification from './UI/Notification/Notification';
-import Logo from '../img/PSY_logo.png';
-
-//import userStats from '../data/userStats.json';
-import { fetchUserData, fetchUserStats } from '../services/data';
-
 import TestResults from './Question/TestResults';
 
 export default function ProfileBox({ user, onSuccessfulLogout }) {
-	const [notifications, setNotifications] = useState([]);
 	const [username, setUsername] = useState(``);
 	const [userStats, setUserStats] = useState([]);
 	const [verified, setVerified] = useState(false);
@@ -19,34 +12,15 @@ export default function ProfileBox({ user, onSuccessfulLogout }) {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		const loadData = async () => {
-			try {
-				const [userData, statsData] = await Promise.all([fetchUserData(), fetchUserStats()]);
+		const userData = JSON.parse(localStorage.getItem('userData'));
+		if (userData) {
+			setUsername(userData[0].username);
+			setVerified(userData[0].emailVerified);
+		}
 
-				setUsername(userData[0].username);
-				setUserStats(statsData);
-				setVerified(userData[0].emailVerified);
-			} catch (error) {
-				addNotification('error', 'ошибка', 'Не удалось загрузить данные');
-			}
-		};
-		loadData();
-	});
-
-	const addNotification = (type, title, message) => {
-		setNotifications((prevNotifications) => {
-			const newNotification = { type, title, message };
-
-			if (prevNotifications.length >= 4) {
-				prevNotifications.shift();
-			}
-			return [...prevNotifications, newNotification];
-		});
-
-		setTimeout(() => {
-			setNotifications((prevNotifications) => prevNotifications.filter((_, index) => index !== 0));
-		}, 4000);
-	};
+		const stats = JSON.parse(localStorage.getItem('userStats')) || [];
+		setUserStats(stats);
+	}, []);
 
 	const handleClick = (mode, path = null, testName = '') => {
 		if (mode === 'showResults') {
@@ -283,7 +257,6 @@ export default function ProfileBox({ user, onSuccessfulLogout }) {
 					</button>
 				</div>
 			</div>
-			<Notification notifications={notifications} />
 		</>
 	);
 }

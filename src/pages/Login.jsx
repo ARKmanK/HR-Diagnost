@@ -18,43 +18,8 @@ export default function Login() {
 		if (token) {
 			setIsAuthenticated(true);
 		}
-	}, [isAuthenticated]);
+	}, []);
 
-	/* useEffect(() => {
-		console.log('isAuthenticated: ', isAuthenticated);
-	}); */
-
-	// Обработчик успешного входа
-	/* const handleLoginSuccess = (user) => {
-		console.log('User logged in:', user); // Добавьте это для диагностики
-		setIsAuthenticated(true);
-		setUser(user);
-	}; */
-
-	// Обработчик успешной регистрации
-	/* const handleSignUpSuccess = (user) => {
-		console.log('User signed up:', user); // Добавьте это для диагностики
-		setIsAuthenticated(true);
-		setUser(user);
-	}; */
-
-	// Обработчик успешного выхода
-	/* const handleLogoutSuccess = () => {
-		setIsAuthenticated(false);
-		setUser(null);
-	}; */
-
-	// Если данные загружаются, показываем заглушку
-	/* if (isLoading) {
-		return (
-			<>
-				<div className="max-w-[1200px] mx-auto">
-					<Header />
-					<div>Загрузка...</div>;
-				</div>
-			</>
-		);
-	} */
 	const addNotification = (type, title, message) => {
 		setNotifications((prevNotifications) => {
 			const newNotification = { type, title, message };
@@ -87,7 +52,7 @@ export default function Login() {
 
 	return (
 		<>
-			<div className="max-w-[1200px] mx-auto">
+			<div className='max-w-[1200px] mx-auto'>
 				<Header />
 				{isAuthenticated ? (
 					<ProfileBox user={user} onSuccessfulLogout={handleLogoutSuccess} />
@@ -97,7 +62,7 @@ export default function Login() {
 							<>
 								<LoginForm onSuccessfulLogin={handleLoginSuccess} />
 								<button
-									className="border border-white text-white text-sm rounded-xl p-2"
+									className='border border-white text-white text-sm rounded-xl p-2'
 									onClick={() => setShowLoginForm(false)}
 								>
 									Зарегистрироваться

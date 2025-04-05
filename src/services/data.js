@@ -1,6 +1,4 @@
 const API = import.meta.env.VITE_SWAGGER_URL;
-import userData from './userData.json';
-import userStats from './userStats.json';
 
 export const fetchUserData = async (token = null) => {
 	/* try {
@@ -22,7 +20,7 @@ export const fetchUserData = async (token = null) => {
   } catch (error) {
     throw new Error('Ошибка получения данных', + error.message)
   } */
-	return userData;
+	return;
 };
 
 export const fetchUserStats = async (token = null) => {
@@ -45,7 +43,7 @@ export const fetchUserStats = async (token = null) => {
   } catch (error) {
     throw new Error('Ошибка получения данных', + error.message)
   } */
-	return userStats;
+	return;
 };
 
 export const saveTestResultsInStorage = async (testData) => {
@@ -53,22 +51,18 @@ export const saveTestResultsInStorage = async (testData) => {
 		const currentStats = JSON.parse(localStorage.getItem('userStats')) || [];
 
 		const testIndex = currentStats.findIndex((t) => t.testName === testData.testName);
-
 		let updatedStats;
 		if (testIndex >= 0) {
-			// Обновляем существующий тест
 			updatedStats = [
 				...currentStats.slice(0, testIndex),
 				{ ...currentStats[testIndex], ...testData },
 				...currentStats.slice(testIndex + 1),
 			];
 		} else {
-			// Добавляем новый тест (если вдруг его не было)
 			updatedStats = [...currentStats, testData];
 		}
 
 		localStorage.setItem('userStats', JSON.stringify(updatedStats));
-
 		await sendUserStats(testData);
 		return true;
 	} catch (error) {
@@ -97,7 +91,6 @@ export const sendUserStats = async (data) => {
 		console.log('Ошибка: ', error);
 		throw error;
 	} */
-	console.log('sendUserStats');
 	return;
 };
 

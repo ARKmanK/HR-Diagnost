@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { checkUser, signIn } from '../services/auth';
 import Notification from './UI/Notification/Notification';

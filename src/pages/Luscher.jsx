@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
+import { useState } from 'react';
 
 import Header from '../components/UI/Header';
 import TestInfoBox from '../components/TestInfoBox';
@@ -10,14 +11,14 @@ export default function Holland() {
 	const [isTestStarted, setIsTestStarted] = useState(false);
 
 	return (
-		<div className="bg-gray-300 max-w-[1200px] mx-auto">
+		<div className='bg-gray-300 max-w-[1200px] mx-auto'>
 			<Header />
 			<TestInfoBox boxType={'luscherTest'} />
 
 			{isTestStarted && <QuestionSection testName={'luscherTest'} questions={luscherQuestions} />}
 
 			{!isTestStarted && (
-				<div className="ml-4 pb-3">
+				<div className='ml-4 pb-3'>
 					<Button
 						onClick={() => {
 							setIsTestStarted(true);

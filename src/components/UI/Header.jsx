@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Logo from '../../img/PSY_logo.png';
 import { pages } from '../../data/pages';
 import { Link } from 'react-router-dom';

@@ -1,6 +1,7 @@
+import React from 'react';
 import { useState } from 'react';
-import TestResults from '../TestResults';
-import countResult from '../../../data/HollandTest/countResult';
+import TestResults from '../TestResults.jsx';
+import countResult from '../../../data/HollandTest/countResult.js';
 import { saveTestResultsInStorage } from '../../../services/data.js';
 
 export default function QuestionBoxTypeA({ question, options, onClick, testName, testLength }) {

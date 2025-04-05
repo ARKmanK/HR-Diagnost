@@ -1,4 +1,6 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
+
 import Header from '../components/UI/Header';
 import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
@@ -10,7 +12,6 @@ export default function Login() {
 	const [showLoginForm, setShowLoginForm] = useState(true);
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [user, setUser] = useState(null);
-	const [isLoading, setIsLoading] = useState(true); // Добавляем состояние загрузки
 	const [notifications, setNotifications] = useState([]);
 
 	useEffect(() => {

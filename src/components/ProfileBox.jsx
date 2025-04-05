@@ -1,8 +1,9 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TestResults from './Question/TestResults';
 
-export default function ProfileBox({ user, onSuccessfulLogout }) {
+export default function ProfileBox({ onSuccessfulLogout }) {
 	const [username, setUsername] = useState(``);
 	const [userStats, setUserStats] = useState([]);
 	const [verified, setVerified] = useState(false);

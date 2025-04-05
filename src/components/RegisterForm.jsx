@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { signUp } from '../services/auth';
 import { ArrowBigLeft } from 'lucide-react';

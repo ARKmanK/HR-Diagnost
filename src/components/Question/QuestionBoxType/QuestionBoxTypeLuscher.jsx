@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
 
-import TestResults from '../TestResults.jsx';
-import { questions } from '../../../data/LuscherTest/questionsList.js';
-import countResult from '../../../data/LuscherTest/countResult.js';
+import TestResults from '@/components/Question/TestResults.jsx';
+import { questions } from '@data/LuscherTest/questionsList.js';
+import countResult from '@data/LuscherTest/countResult.js';
 
 export default function QuestionBoxTypeB() {
 	const [list, setList] = useState([]);

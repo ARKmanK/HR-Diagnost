@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import TestResults from './Question/TestResults';
+import { checkEmailVerification } from '../services/auth.js';
 
 export default function ProfileBox({ onSuccessfulLogout }) {
 	const [username, setUsername] = useState(``);
@@ -36,6 +37,10 @@ export default function ProfileBox({ onSuccessfulLogout }) {
 	const handleLogout = () => {
 		localStorage.removeItem('authToken');
 		onSuccessfulLogout();
+	};
+
+	const checkVerification = () => {
+		checkEmailVerification();
 	};
 
 	return (
@@ -113,6 +118,12 @@ export default function ProfileBox({ onSuccessfulLogout }) {
 											d='M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636'
 										/>
 									</svg>
+									<button
+										onClick={checkVerification}
+										className='mx-1 px-2 border-2 rounded-xl cursor-pointer'
+									>
+										Проверить
+									</button>
 								</div>
 								<p className='ml-13 mb-2 font-medium '>Проверьте почту</p>
 							</div>

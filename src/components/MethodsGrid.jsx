@@ -21,6 +21,7 @@ export default function MethodsGrid() {
 						title={test.title}
 						description={test.description}
 						onClick={() => handleClick(test.path)}
+						testName={test.name}
 					/>
 				))}
 			</div>

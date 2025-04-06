@@ -17,6 +17,7 @@ export default function QuestionBoxTypeA({ question, options, onClick, testName,
 					? newAnswerList.push(`${questionIndex + 1}b`)
 					: newAnswerList.push(`${questionIndex + 1}a`);
 			}
+
 			if (questionIndex + 1 === testLength) {
 				const results = countResult(newAnswerList);
 

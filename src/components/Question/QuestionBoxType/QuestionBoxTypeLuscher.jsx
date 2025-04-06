@@ -4,6 +4,7 @@ import { useState } from 'react';
 import TestResults from '@/components/Question/TestResults.jsx';
 import { questions } from '@data/LuscherTest/questionsList.js';
 import countResult from '@data/LuscherTest/countResult.js';
+import { saveTestResultsInStorage } from '@services/data.js';
 
 export default function QuestionBoxTypeB() {
 	const [list, setList] = useState([]);
@@ -14,8 +15,17 @@ export default function QuestionBoxTypeB() {
 			const newList = [...prevList, color];
 
 			if (newList.length === Object.keys(questions).length) {
-				countResult(newList);
-				return newList;
+				const results = countResult(newList);
+
+				saveTestResultsInStorage({
+					testTitle: 'Тест Люшера',
+					testName: 'luscherTest',
+					testAddress: '/luscher',
+					answers: newList,
+					results,
+					status: 'done',
+					dateCompleted: new Date().toISOString(),
+				});
 			}
 			return newList;
 		});

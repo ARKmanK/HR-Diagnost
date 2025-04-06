@@ -157,7 +157,7 @@ export const signIn = async (username, password) => {
 }; */
 
 export const checkEmailVerification = async () => {
-	console.log('Email VErification');
+	console.log('Email Verification');
 
 	return;
 };

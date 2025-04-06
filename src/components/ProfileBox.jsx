@@ -43,6 +43,18 @@ export default function ProfileBox({ onSuccessfulLogout }) {
 		checkEmailVerification();
 	};
 
+	const getButtonClass = (testName) => {
+		if (testName === 'hollandTest') {
+			return 'absolute right cursor-pointer rounded-4xl mr-2 mt-2 z-16';
+		} else {
+			if (testName === 'luscherTest') {
+				return 'absolute right cursor-pointer rounded-4xl mr-8 mt-7 z-16';
+			} else {
+				return 'absolute right cursor-pointer rounded-4xl mr-10 mt-2 z-16';
+			}
+		}
+	};
+
 	return (
 		<>
 			<div className='flex flex-col bg-gray-700 mx-30 rounded-b-2xl'>
@@ -247,7 +259,7 @@ export default function ProfileBox({ onSuccessfulLogout }) {
 										<TestResults testName={testName} />
 										<button
 											onClick={() => setShowTestResults(false)}
-											className='absolute right cursor-pointer rounded-4xl mr-2 mt-2'
+											className={getButtonClass(testName)}
 										>
 											<svg
 												xmlns='http://www.w3.org/2000/svg'

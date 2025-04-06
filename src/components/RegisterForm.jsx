@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
 
-import { signUp } from '../services/auth';
 import { ArrowBigLeft } from 'lucide-react';
-import Notification from './UI/Notification/Notification';
+import { signUp } from '@services/auth';
+import Notification from '@components/UI/Notification/Notification';
 
 export default function RegisterForm({ onSuccessfulSignUp, onSwitchToLogin }) {
 	const [username, setUsername] = useState('');

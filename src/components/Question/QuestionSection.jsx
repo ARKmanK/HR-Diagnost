@@ -1,9 +1,9 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 
-import QuestionBoxTypeHolland from './QuestionBoxType/QuestionBoxTypeHolland';
-import QuestionBoxTypeLuscher from './QuestionBoxType/QuestionBoxTypeLuscher';
-import ProgressBar from '../ProgressBar';
+import QuestionBoxTypeHolland from '@components/Question/QuestionBoxType/QuestionBoxTypeHolland';
+import QuestionBoxTypeLuscher from '@components/Question/QuestionBoxType/QuestionBoxTypeLuscher';
+import ProgressBar from '@components/ProgressBar';
 
 export default function QuestionSection({ testName, questions }) {
 	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import raceVideo from '../img/race.webm';
+import raceVideo from '@img/race.webm';
 
 export default function VideoBackground({ children }) {
 	return (

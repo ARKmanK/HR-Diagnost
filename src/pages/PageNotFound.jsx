@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Header from '../components/UI/Header';
-import redbullLogo from '../img/RedBullRacing.svg';
+import Header from '@components/UI/Header';
+import redbullLogo from '@img/RedBullRacing.svg';
 
 export default function PageNotFound() {
 	return (

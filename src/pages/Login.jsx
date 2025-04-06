@@ -1,12 +1,12 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-import Header from '../components/UI/Header';
-import RegisterForm from '../components/RegisterForm';
-import LoginForm from '../components/LoginForm';
-import VideoBackground from '../components/VideoBackground';
-import ProfileBox from '../components/ProfileBox';
-import Notification from '../components/UI/Notification/Notification';
+import Header from '@components/UI/Header';
+import RegisterForm from '@components/RegisterForm';
+import LoginForm from '@components/LoginForm';
+import VideoBackground from '@components/VideoBackground';
+import ProfileBox from '@components/ProfileBox';
+import Notification from '@components/UI/Notification/Notification';
 
 export default function Login() {
 	const [showLoginForm, setShowLoginForm] = useState(true);

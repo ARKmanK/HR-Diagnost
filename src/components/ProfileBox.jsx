@@ -2,8 +2,8 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import TestResults from './Question/TestResults';
-import { checkEmailVerification } from '../services/auth.js';
+import TestResults from '@components/Question/TestResults';
+import { checkEmailVerification } from '@services/auth.js';
 
 export default function ProfileBox({ onSuccessfulLogout }) {
 	const [username, setUsername] = useState(``);

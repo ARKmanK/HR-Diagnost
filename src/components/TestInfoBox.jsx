@@ -1,11 +1,8 @@
 import React from 'react';
 
-import {
-	personalityTypes,
-	testInfo as HollandTestInfo,
-} from '../data/HollandTest/personalityTypes';
-import { testInfo as CattellTestInfo } from '../data/CattellTest/testInfo';
-import { testInfo as LuscherTestInfo } from '../data/LuscherTest/testInfo';
+import { personalityTypes, testInfo as HollandTestInfo } from '@data/HollandTest/personalityTypes';
+import { testInfo as CattellTestInfo } from '@data/CattellTest/testInfo';
+import { testInfo as LuscherTestInfo } from '@data/LuscherTest/testInfo';
 
 export default function TestInfoBox({ boxType }) {
 	return (

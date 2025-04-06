@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 
-import { signIn } from '../services/auth';
-import Notification from './UI/Notification/Notification';
+import { signIn } from '@services/auth';
+import Notification from '@components/UI/Notification/Notification';
 
 export default function LoginForm({ onSuccessfulLogin }) {
 	const [username, setUsername] = useState('');

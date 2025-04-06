@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import MethodCard from './MethodCard';
-import { testsList } from '../data/testsList';
+import MethodCard from '@components/MethodCard';
+import { testsList } from '@data/testsList';
 
 export default function MethodsGrid() {
 	const navigate = useNavigate();

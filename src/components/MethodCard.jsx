@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-import Button from './UI/Button/ButtonTypeA/Button';
-import Notification from './UI/Notification/Notification';
+import Button from '@components/UI/Button/ButtonTypeA/Button';
+import Notification from '@components/UI/Notification/Notification';
 
 export default function MethodCard({ imgSrc, title, description, onClick, testName }) {
 	const [notifications, setNotifications] = useState([]);

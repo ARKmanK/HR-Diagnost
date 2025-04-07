@@ -52,7 +52,7 @@ export default function ProfileBox({ onSuccessfulLogout }) {
 			if (testName === 'luscherTest') {
 				return 'absolute right cursor-pointer rounded-4xl mr-8 mt-7 z-16';
 			} else {
-				return 'absolute right cursor-pointer rounded-4xl mr-10 mt-2 z-16';
+				return 'absolute right cursor-pointer rounded-4xl mr-4 mt-2 z-16';
 			}
 		}
 	};

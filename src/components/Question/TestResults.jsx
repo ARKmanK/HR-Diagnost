@@ -1,4 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import {
+	countScores,
+	convertToSten,
+	interpretResults,
+	scoringKey,
+	rawToSten,
+} from '@data/CattellTest/countResult';
 
 function getColorHex(colorName) {
 	const colors = {
@@ -17,22 +24,45 @@ function getColorHex(colorName) {
 export default function TestResults({ testName }) {
 	const [testResults, setTestResults] = useState(null);
 	const [typeCounts, setTypeCounts] = useState({});
-	//const [showTestResults, setShowTestResults] = useState(false);
+	const [stenScores, setStenScores] = useState(null);
 
 	useEffect(() => {
-		if (testName === 'luscherTest') {
+		if (testName === 'luscherTest' || testName === 'hollandTest') {
 			const storedResults = localStorage.getItem('userStats');
 			if (storedResults) {
 				const allTests = JSON.parse(storedResults);
-				const luscherTest = allTests.find((test) => test.testName === 'luscherTest');
-				if (luscherTest && luscherTest.results) {
-					setTestResults(luscherTest.results);
+				const currentTest = allTests.find((test) => test.testName === testName);
+
+				if (currentTest) {
+					if (testName === 'cattellTest') {
+						const answers = currentTest.answers;
+						const rawScores = countScores(answers, scoringKey);
+						const stenResults = convertToSten(rawScores, rawToSten);
+						setTestResults(rawScores);
+						setStenScores(stenResults);
+					} else if (testName === 'luscherTest') {
+						setTestResults(currentTest.results);
+					} else if (testName === 'hollandTest') {
+						setTypeCounts(currentTest.results);
+					}
 				}
 			}
-		} else {
-			const storedTypeCounts = localStorage.getItem('typeCounts');
-			if (storedTypeCounts) {
-				setTypeCounts(JSON.parse(storedTypeCounts));
+		}
+		if (testName === 'cattellTest') {
+			const storedResults = localStorage.getItem('userStats');
+			if (storedResults) {
+				const allTests = JSON.parse(storedResults);
+				const currentTest = allTests.find((test) => test.testName === testName);
+
+				if (currentTest && currentTest.answers) {
+					const answers = currentTest.answers;
+					const rawScores = countScores(answers, scoringKey);
+					const stenResults = convertToSten(rawScores, rawToSten);
+					const interpretation = interpretResults(stenResults);
+
+					setTestResults(rawScores);
+					setStenScores(interpretation);
+				}
 			}
 		}
 	}, [testName]);
@@ -43,7 +73,7 @@ export default function TestResults({ testName }) {
 
 	return (
 		<>
-			<section className='max-w-[960px] mx-auto bg-gray-500 px-5 pb-7 border rounded-[8%] z-15'>
+			<section className='max-w-[960px] mx-auto bg-gray-500 px-5 pb-7 border rounded-[2%] z-15'>
 				<div>
 					{testName === 'hollandTest' && (
 						<>
@@ -66,9 +96,61 @@ export default function TestResults({ testName }) {
 
 					{testName === 'cattellTest' && (
 						<>
-							<p className='py-8 text-text-lg md:text-2xl font-medium md:font-medium text-center '>
-								Результаты теста Кетелла
+							<p className='py-8 text-text-lg md:text-2xl font-medium md:font-medium text-center'>
+								Результаты теста Кеттелла
 							</p>
+							{testResults && (
+								<div className='space-y-8'>
+									<div className='bg-gray-700 p-6 rounded-lg'>
+										<h2 className='text-2xl font-bold mb-4 text-white'>Основные показатели</h2>
+										<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+											{stenScores &&
+												['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O'].map(
+													(factor) => (
+														<div key={factor} className='p-4 bg-gray-800 rounded-lg text-white'>
+															<p className='text-lg font-semibold'>
+																Фактор {factor}: {stenScores[factor]?.score || 0}
+															</p>
+															<p className='text-sm mt-2'>
+																{stenScores[factor]?.description || 'Нет данных'}
+															</p>
+														</div>
+													)
+												)}
+										</div>
+									</div>
+
+									<div className='bg-gray-700 p-6 rounded-lg'>
+										<h2 className='text-2xl font-bold mb-4 text-white'>
+											Дополнительные показатели
+										</h2>
+										<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+											{stenScores &&
+												['Q1', 'Q2', 'Q3', 'Q4', 'MD'].map((factor) => (
+													<div key={factor} className='p-4 bg-gray-800 rounded-lg text-white'>
+														<p className='text-lg font-semibold'>
+															{factor === 'MD' ? 'Мотивация' : `Фактор ${factor}`}:{' '}
+															{stenScores[factor]?.score || 0}
+														</p>
+														<p className='text-sm mt-2'>
+															{stenScores[factor]?.description || 'Нет данных'}
+														</p>
+													</div>
+												))}
+										</div>
+									</div>
+
+									{Object.values(testResults).every((score) => score === 0) && (
+										<div className='bg-yellow-900 p-4 rounded-lg text-white'>
+											<p className='font-semibold'>Внимание!</p>
+											<p>
+												Все сырые оценки равны 0. Возможно, тест был пройден некорректно или ответы
+												не были сохранены.
+											</p>
+										</div>
+									)}
+								</div>
+							)}
 						</>
 					)}
 
@@ -76,7 +158,6 @@ export default function TestResults({ testName }) {
 						<div className='p-6 text-white'>
 							<h2 className='text-2xl font-bold mb-6 text-center'>Результаты теста Люшера</h2>
 
-							{/* Основное эмоциональное состояние */}
 							<div className='mb-8 p-4 bg-gray-700 rounded-lg'>
 								<h3 className='text-xl font-semibold mb-2'>Общее состояние:</h3>
 								<p
@@ -92,7 +173,6 @@ export default function TestResults({ testName }) {
 								</div>
 							</div>
 
-							{/* Факторы стресса */}
 							{testResults.stressFactors.length > 0 && (
 								<div className='mb-8 p-4 bg-gray-700 rounded-lg'>
 									<h3 className='text-xl font-semibold mb-2'>Факторы стресса:</h3>
@@ -106,7 +186,6 @@ export default function TestResults({ testName }) {
 								</div>
 							)}
 
-							{/* Интерпретация цветов */}
 							<div className='mb-8 p-4 bg-gray-700 rounded-lg'>
 								<h3 className='text-xl font-semibold mb-2'>Интерпретация выбора цветов:</h3>
 								<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
@@ -127,7 +206,6 @@ export default function TestResults({ testName }) {
 								</div>
 							</div>
 
-							{/* Рекомендации */}
 							<div className='p-4 bg-blue-900 rounded-lg'>
 								<h3 className='text-xl font-semibold mb-2'>Рекомендации:</h3>
 								<ul className='list-disc pl-5'>

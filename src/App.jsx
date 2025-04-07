@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { initUserStats, initUserData } from './services/data.js';
+import { initUserStats, initUserData } from '@services/data.js';
 
 import Header from './components/UI/Header';
 import Home from './pages/Home';

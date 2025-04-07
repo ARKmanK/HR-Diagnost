@@ -67,7 +67,7 @@ export const signIn = async (username, password) => {
 		}
 
 		const data = await response.json();
-		console.log(data);
+		//console.log(data);
 		localStorage.setItem('authToken', data.token);
 		return data;
 	} catch (error) {
@@ -81,7 +81,7 @@ export const signIn = async (username, password) => {
  * @param {string} code - Код подтверждения
  * @returns {Promise<Object>} - Результат подтверждения
  */
-export const confirmEmail = async (email, code) => {
+/* export const confirmEmail = async (email, code) => {
 	try {
 		const response = await fetch(`${API}/Authentication/Confirm`, {
 			method: 'PUT',
@@ -103,14 +103,14 @@ export const confirmEmail = async (email, code) => {
 	} catch (error) {
 		throw new Error('Ошибка при подтверждении email: ' + error.message);
 	}
-};
+}; */
 
 /**
  * Восстановление пароля
  * @param {string} email - Email пользователя
  * @returns {Promise<Object>} - Результат запроса
  */
-export const restorePassword = async (email) => {
+/* export const restorePassword = async (email) => {
 	try {
 		const response = await fetch(`${API}/Authentication/RestorePassword`, {
 			method: 'PUT',
@@ -131,14 +131,14 @@ export const restorePassword = async (email) => {
 	} catch (error) {
 		throw new Error('Ошибка при запросе восстановления пароля: ' + error.message);
 	}
-};
+}; */
 
 /**
  * Проверка пользователя
  * @returns {Promise<boolean>} - Всегда возвращает true
  */
 
-export const checkUser = async () => {
+/* export const checkUser = async () => {
 	const token = localStorage.getItem('authToken');
 	if (!token) return false;
 
@@ -154,14 +154,10 @@ export const checkUser = async () => {
 		console.error('Ошибка при проверке токена:', error);
 		return false;
 	}
-};
+}; */
 
-/**
- * Выход пользователя
- * @returns {Promise<void>}
- */
-export const signOut = async () => {
-	// В реальной реализации здесь должен быть вызов API для выхода
-	// и очистка токена из localStorage
-	return Promise.resolve();
+export const checkEmailVerification = async () => {
+	console.log('Email Verification');
+
+	return;
 };

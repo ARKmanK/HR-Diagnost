@@ -6,6 +6,7 @@ export const testsList = [
 	{
 		imgSrc: Holland,
 		title: 'Тест Голланда',
+		name: 'hollandTest',
 		description:
 			' Цель этого теста — помочь людям определить их профессиональные интересы и предпочтения, чтобы они могли выбрать карьеру, которая соответствует их личности и интересам.',
 		path: '/holland',
@@ -13,6 +14,7 @@ export const testsList = [
 	{
 		imgSrc: Cattell,
 		title: 'Тест Кетелла',
+		name: 'cattellTest',
 		description:
 			'Этот тест предназначен для оценки и измерения различных аспектов личности человека.',
 		path: '/cattell',
@@ -20,6 +22,7 @@ export const testsList = [
 	{
 		imgSrc: Luscher,
 		title: 'Тест Люшера',
+		name: 'luscherTest',
 		description:
 			'Данный тест использует цветовые предпочтения для оценки эмоционального состояния и личностных характеристик человека.',
 		path: '/luscher',

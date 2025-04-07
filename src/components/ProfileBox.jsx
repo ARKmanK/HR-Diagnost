@@ -2,7 +2,8 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import TestResults from './Question/TestResults';
+import TestResults from '@components/Question/TestResults';
+import { checkEmailVerification } from '@services/auth.js';
 
 export default function ProfileBox({ onSuccessfulLogout }) {
 	const [username, setUsername] = useState(``);
@@ -35,7 +36,25 @@ export default function ProfileBox({ onSuccessfulLogout }) {
 
 	const handleLogout = () => {
 		localStorage.removeItem('authToken');
+		localStorage.removeItem('userStats');
+		localStorage.removeItem('userData');
 		onSuccessfulLogout();
+	};
+
+	const checkVerification = () => {
+		checkEmailVerification();
+	};
+
+	const getButtonClass = (testName) => {
+		if (testName === 'hollandTest') {
+			return 'absolute right cursor-pointer rounded-4xl mr-2 mt-2 z-16';
+		} else {
+			if (testName === 'luscherTest') {
+				return 'absolute right cursor-pointer rounded-4xl mr-8 mt-7 z-16';
+			} else {
+				return 'absolute right cursor-pointer rounded-4xl mr-4 mt-2 z-16';
+			}
+		}
 	};
 
 	return (
@@ -113,6 +132,12 @@ export default function ProfileBox({ onSuccessfulLogout }) {
 											d='M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636'
 										/>
 									</svg>
+									<button
+										onClick={checkVerification}
+										className='mx-1 px-2 border-2 rounded-xl cursor-pointer'
+									>
+										Проверить
+									</button>
 								</div>
 								<p className='ml-13 mb-2 font-medium '>Проверьте почту</p>
 							</div>
@@ -236,7 +261,7 @@ export default function ProfileBox({ onSuccessfulLogout }) {
 										<TestResults testName={testName} />
 										<button
 											onClick={() => setShowTestResults(false)}
-											className='absolute right cursor-pointer rounded-4xl mr-2 mt-2'
+											className={getButtonClass(testName)}
 										>
 											<svg
 												xmlns='http://www.w3.org/2000/svg'

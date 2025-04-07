@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import MethodCard from './MethodCard';
-import { testsList } from '../data/testsList';
+import MethodCard from '@components/MethodCard';
+import { testsList } from '@data/testsList';
 
 export default function MethodsGrid() {
 	const navigate = useNavigate();
@@ -21,6 +21,7 @@ export default function MethodsGrid() {
 						title={test.title}
 						description={test.description}
 						onClick={() => handleClick(test.path)}
+						testName={test.name}
 					/>
 				))}
 			</div>

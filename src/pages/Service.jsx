@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Header from '../components/UI/Header';
-import VideoBackground from '../components/VideoBackground'; // Импортируйте новый компонент
+import Header from '@components/UI/Header';
+import VideoBackground from '@components/VideoBackground';
 
 export default function Service() {
 	return (

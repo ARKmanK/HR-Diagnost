@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
 
-import Header from '../components/UI/Header';
-import TestInfoBox from '../components/TestInfoBox';
-import QuestionSection from '../components/Question/QuestionSection';
-import Button from '../components/UI/Button/ButtonTypeB/Button';
-import { questions as luscherQuestions } from '../data/LuscherTest/questionsList';
+import Header from '@components/UI/Header';
+import TestInfoBox from '@components/TestInfoBox';
+import QuestionSection from '@components/Question/QuestionSection';
+import Button from '@components/UI/Button/ButtonTypeB/Button';
+import { questions as luscherQuestions } from '@data/LuscherTest/questionsList';
 
 export default function Holland() {
 	const [isTestStarted, setIsTestStarted] = useState(false);

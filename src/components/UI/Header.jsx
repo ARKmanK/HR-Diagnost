@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Logo from '../../img/PSY_logo.png';
-import { pages } from '../../data/pages';
+import Logo from '@img/PSY_logo.png';
+import { pages } from '@data/pages';
 
 export default function Header() {
 	return (

@@ -2,27 +2,13 @@ import React from 'react';
 import { useState } from 'react';
 
 import { signIn } from '@services/auth';
+import useNotification from '@hooks/useNotification';
 import Notification from '@components/UI/Notification/Notification';
 
 export default function LoginForm({ onSuccessfulLogin }) {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
-	const [notifications, setNotifications] = useState([]);
-
-	const addNotification = (type, title, message) => {
-		setNotifications((prevNotifications) => {
-			const newNotification = { type, title, message };
-
-			if (prevNotifications.length >= 4) {
-				prevNotifications.shift();
-			}
-			return [...prevNotifications, newNotification];
-		});
-
-		setTimeout(() => {
-			setNotifications((prevNotifications) => prevNotifications.filter((_, index) => index !== 0));
-		}, 4000);
-	};
+	const { notifications, addNotification } = useNotification();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();

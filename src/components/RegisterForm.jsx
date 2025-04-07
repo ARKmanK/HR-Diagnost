@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { ArrowBigLeft } from 'lucide-react';
 import { signUp } from '@services/auth';
+import useNotification from '@hooks/useNotification';
 import Notification from '@components/UI/Notification/Notification';
 
 export default function RegisterForm({ onSuccessfulSignUp, onSwitchToLogin }) {
@@ -12,28 +13,13 @@ export default function RegisterForm({ onSuccessfulSignUp, onSwitchToLogin }) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [lastRequestTime, setLastRequestTime] = useState(null);
-	const [notifications, setNotifications] = useState([]);
+	const { notifications, addNotification } = useNotification();
 
 	const isValidEmail = (email) => {
 		return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 	};
 	const isValidPassword = (password) => {
 		return password.length >= 6 && /[a-zA-Z]/.test(password) && /\d/.test(password);
-	};
-
-	const addNotification = (type, title, message) => {
-		setNotifications((prevNotifications) => {
-			const newNotification = { type, title, message };
-
-			if (prevNotifications.length >= 4) {
-				prevNotifications.shift();
-			}
-			return [...prevNotifications, newNotification];
-		});
-
-		setTimeout(() => {
-			setNotifications((prevNotifications) => prevNotifications.filter((_, index) => index !== 0));
-		}, 4000);
 	};
 
 	const handleSubmit = async (e) => {

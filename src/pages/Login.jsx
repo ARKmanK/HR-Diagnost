@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
+import { initUserStats, initUserData } from '@services/data.js';
+import useNotification from '@hooks/useNotification';
 import Header from '@components/UI/Header';
 import RegisterForm from '@components/RegisterForm';
 import LoginForm from '@components/LoginForm';
@@ -12,29 +14,16 @@ export default function Login() {
 	const [showLoginForm, setShowLoginForm] = useState(true);
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [user, setUser] = useState(null);
-	const [notifications, setNotifications] = useState([]);
+	const { notifications, addNotification } = useNotification();
 
 	useEffect(() => {
 		const token = localStorage.getItem('authToken');
 		if (token) {
 			setIsAuthenticated(true);
 		}
+		initUserData();
+		initUserStats();
 	}, []);
-
-	const addNotification = (type, title, message) => {
-		setNotifications((prevNotifications) => {
-			const newNotification = { type, title, message };
-
-			if (prevNotifications.length >= 4) {
-				prevNotifications.shift();
-			}
-			return [...prevNotifications, newNotification];
-		});
-
-		setTimeout(() => {
-			setNotifications((prevNotifications) => prevNotifications.filter((_, index) => index !== 0));
-		}, 4000);
-	};
 
 	const handleLoginSuccess = () => {
 		addNotification('success', 'Успешно', 'Вход разрешен');

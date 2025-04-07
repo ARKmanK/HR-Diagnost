@@ -2,12 +2,13 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 
 import Button from '@components/UI/Button/ButtonTypeA/Button';
+import useNotification from '@hooks/useNotification';
 import Notification from '@components/UI/Notification/Notification';
 
 export default function MethodCard({ imgSrc, title, description, onClick, testName }) {
-	const [notifications, setNotifications] = useState([]);
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [testStatus, setTestStatus] = useState('not-started');
+	const { notifications, addNotification } = useNotification();
 
 	useEffect(() => {
 		const token = localStorage.getItem('authToken');
@@ -33,21 +34,6 @@ export default function MethodCard({ imgSrc, title, description, onClick, testNa
 
 		checkTestStatus();
 	}, [testName]);
-
-	const addNotification = (type, title, message) => {
-		setNotifications((prevNotifications) => {
-			const newNotification = { type, title, message };
-
-			if (prevNotifications.length >= 4) {
-				prevNotifications.shift();
-			}
-			return [...prevNotifications, newNotification];
-		});
-
-		setTimeout(() => {
-			setNotifications((prevNotifications) => prevNotifications.filter((_, index) => index !== 0));
-		}, 4000);
-	};
 
 	const startTest = async () => {
 		if (!isAuthenticated) {

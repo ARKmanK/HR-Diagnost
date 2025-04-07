@@ -36,6 +36,8 @@ export default function ProfileBox({ onSuccessfulLogout }) {
 
 	const handleLogout = () => {
 		localStorage.removeItem('authToken');
+		localStorage.removeItem('userStats');
+		localStorage.removeItem('userData');
 		onSuccessfulLogout();
 	};
 
